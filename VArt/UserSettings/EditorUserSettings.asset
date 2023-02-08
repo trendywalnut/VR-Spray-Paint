@@ -6,12 +6,18 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedSceneGuid-0:
+<<<<<<< Updated upstream
       value: 5703015f0051080a0f5d082013715c4442151e7e792b25647a714b30e1b4376e
       flags: 0
     RecentlyUsedSceneGuid-1:
       value: 51010d56070c58025b0b097414760c444116492f2e2b24677f7d1e30e0e2636a
       flags: 0
     RecentlyUsedSceneGuid-2:
+=======
+      value: 5b0355525153595e0f0c5e7343265b444e4f4e7b7a7b7f3175281c35bae4666f
+      flags: 0
+    RecentlyUsedSceneGuid-1:
+>>>>>>> Stashed changes
       value: 5a5757560101590a5d0c0e24427b5d44434e4c7a7b7a23677f2b4565b7b5353a
       flags: 0
     RecentlyUsedSceneGuid-3:
