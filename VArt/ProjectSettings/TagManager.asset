@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Red
+  - Orange
+  - Yellow
+  - Green
+  - Blue
+  - Violet
+  - Brown
+  - Black
+  - White
   layers:
   - Default
   - TransparentFX
