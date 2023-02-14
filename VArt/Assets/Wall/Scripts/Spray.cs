@@ -42,13 +42,13 @@ public class Spray : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_triggerPulled) {
+        if(_triggerPulled) {
             Draw();
             SprayAudio();
         }
         else {
             audioSource.Stop();
-            _particleColor.enabled = false;
+            _particleColor.particleSystem.Pause();
         }
     }
 
@@ -131,7 +131,7 @@ public class Spray : MonoBehaviour
     }
 
     private void SprayParticles() {
-        _particleColor.enabled = true;
+        _particleColor.particleSystem.Play();
     }
 
     private void OnTriggerEnter(Collider col) {
