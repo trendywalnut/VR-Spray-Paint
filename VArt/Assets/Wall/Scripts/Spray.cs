@@ -8,13 +8,17 @@ public class Spray : MonoBehaviour
 {
     [SerializeField] private Transform _tip;
     [SerializeField] private Transform strap;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private ParticleColor _particleColor;
     [SerializeField] private int _spraySize = 5;
     public Material[] materials;
 
     private Renderer _renderer;
     Renderer can_renderer;
     private Color[] _colors;
-    private float _sprayDistance;   // distance for spray raycast
+    [SerializeField] private float _sprayDistance;   // distance for spray raycast
+    
+    
 
     private RaycastHit _touch;
     private Wall _wall;
@@ -31,14 +35,20 @@ public class Spray : MonoBehaviour
         can_renderer.sharedMaterial = materials[0];
         _renderer = _tip.GetComponent<Renderer>();
         _colors = Enumerable.Repeat(_renderer.material.color, _spraySize/3 * _spraySize/3).ToArray();
-        _sprayDistance = _tip.localScale.y + 1.5f; // currently will only spray if tip is touching wall. need to add offset for proper spray.
+        _sprayDistance += _tip.localScale.y; // currently will only spray if tip is touching wall. need to add offset for proper spray.
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_triggerPulled) {
+        if(!_triggerPulled) {
             Draw();
+            SprayAudio();
+        }
+        else {
+            audioSource.Stop();
+            _particleColor.enabled = false;
         }
     }
 
@@ -54,7 +64,10 @@ public class Spray : MonoBehaviour
     }
 
     private void Draw() {
-        if (Physics.Raycast(_tip.position, -transform.right, out _touch, _sprayDistance)) { // check if we hit anything
+        SprayParticles();
+        if (Physics.Raycast(_tip.transform.position, -transform.right, out _touch, _sprayDistance)) { // check if we hit anything
+            //Debug.DrawRay(_tip.transform.position, -transform.right, Color.white, 2f);
+            //Debug.Log(_touch.transform.name);
             if (_touch.transform.CompareTag("Wall")) {  // check if what we hit is a wall
                 /* Cache the wall object to save on search time for subsequent frames. */
                 if (_wall == null) {
@@ -108,7 +121,21 @@ public class Spray : MonoBehaviour
         return;
     }
 
+    private void SprayAudio() {
+        if (!audioSource.isPlaying) {
+            audioSource.Play();
+        }
+        else {
+            Debug.Log("playing audio");
+        }
+    }
+
+    private void SprayParticles() {
+        _particleColor.enabled = true;
+    }
+
     private void OnTriggerEnter(Collider col) {
+        _particleColor.UpdateParticleColor(col.gameObject.tag);
         switch (col.gameObject.tag)
         {
             case "Red":
