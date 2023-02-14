@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Spray : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Spray : MonoBehaviour
     private Vector2 _touchPos;
     private Vector2 _lastTouchPos;
     private bool _touchedLastFrame;
-    private Quaternion _lastTouchRot;
+    private bool _triggerPulled;
 
 
     // Start is called before the first frame update
@@ -36,7 +37,20 @@ public class Spray : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Draw();
+        if(_triggerPulled) {
+            Draw();
+        }
+    }
+
+    public void TriggerPulled() {
+        _triggerPulled = true;
+        //some script to play sound
+    }
+
+    public void TriggerReleased() {
+        _triggerPulled = false;
+        _wall = null;
+        _touchedLastFrame = false;
     }
 
     private void Draw() {
@@ -80,12 +94,10 @@ public class Spray : MonoBehaviour
                         _wall.texture.SetPixels(lerpX - _spraySize/5, lerpY + _spraySize/5, _spraySize/3, _spraySize/3, _colors); // draw current pixels
                         _wall.texture.SetPixels(lerpX - _spraySize/5, lerpY - _spraySize/5, _spraySize/3, _spraySize/3, _colors); // draw current pixels
                     }
-                    transform.rotation = _lastTouchRot; // lock spray can rotation to prevent issues with physics interactions
                     _wall.texture.Apply();
                 }
                 /* Set information for the next frame. */
                 _lastTouchPos = new Vector2(x, y);
-                _lastTouchRot = transform.rotation;
                 _touchedLastFrame = true;
                 return;
             }
