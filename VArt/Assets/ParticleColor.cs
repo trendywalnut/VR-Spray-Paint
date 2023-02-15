@@ -17,8 +17,7 @@ public class ParticleColor : MonoBehaviour {
                 main.startColor = new ParticleSystem.MinMaxGradient(Color.red);
                 break;
             case "Orange":
-                main.startColor = new ParticleSystem.MinMaxGradient(new Color(255,165,0));
-
+                main.startColor = new ParticleSystem.MinMaxGradient(new Color(1, .49f, .313f));
                 break;
             case "Yellow":
                 main.startColor = new ParticleSystem.MinMaxGradient(Color.yellow);
@@ -35,7 +34,7 @@ public class ParticleColor : MonoBehaviour {
                 main.startColor = new ParticleSystem.MinMaxGradient(Color.magenta);
                 break;
             case "Brown":
-                main.startColor = new ParticleSystem.MinMaxGradient(new Color(139,69,19));
+                main.startColor = new ParticleSystem.MinMaxGradient(new Color(.545f, .27f, .0745f));
                 break;
             case "Black":
                 main.startColor = new ParticleSystem.MinMaxGradient(Color.black);

@@ -43,18 +43,19 @@ public class Spray : MonoBehaviour
     void Update()
     {
         if(_triggerPulled) {
-            Draw();
+            SprayParticles();
             SprayAudio();
+            Draw();
         }
         else {
-            audioSource.Stop();
+            audioSource.Pause();
             _particleColor.particleSystem.Pause();
+            _particleColor.particleSystem.Clear();
         }
     }
 
     public void TriggerPulled() {
         _triggerPulled = true;
-        //some script to play sound
     }
 
     public void TriggerReleased() {
@@ -64,7 +65,6 @@ public class Spray : MonoBehaviour
     }
 
     private void Draw() {
-        SprayParticles();
         if (Physics.Raycast(_tip.transform.position, -transform.right, out _touch, _sprayDistance)) { // check if we hit anything
             //Debug.DrawRay(_tip.transform.position, -transform.right, Color.white, 2f);
             //Debug.Log(_touch.transform.name);
